@@ -1,0 +1,198 @@
+.page-layout {
+  display: flex;
+  gap: 24px;
+  max-width: 1300px;
+  margin: 16px auto 40px;
+  padding: 0 32px;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+}
+
+.event-details-container {
+  flex: 1;
+  padding: 32px;
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.event-name {
+  color: #1a3faa;
+  text-align: left;
+  font-size: 42px;
+  font-weight: 900;
+  margin: 0 0 24px;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.event-header .event-name {
+  margin: 0;
+}
+
+.event-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+  white-space: nowrap;
+  color: #555;
+  font-size: 14px;
+  padding-top: 8px;
+}
+
+.event-date-label {
+  font-weight: bold;
+  color: #1a3faa;
+  margin-right: 4px;
+}
+
+.subscribe-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #1a3faa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.subscribe-btn:hover {
+  background-color: #0d2a7a;
+}
+
+.event-description-box {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.event-details-heading {
+  color: #1a3faa;
+  font-size: 24px;
+  margin: 32px 0 16px;
+}
+
+.event-detailed-description {
+  line-height: 1.6;
+  color: #333;
+  font-size: 16px;
+}
+
+.subscribers-container {
+  width: 280px;
+  flex-shrink: 0;
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.subscribers-heading {
+  color: #1a3faa;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 16px;
+}
+
+.subscribers-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subscribers-table th,
+.subscribers-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.subscribers-table th {
+  color: #1a3faa;
+  font-weight: bold;
+}
+
+.remove-btn {
+  background-color: #cc3333;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+  background-color: #990000;
+}
+
+.delete-btn,
+.edit-btn {
+  display: inline-block;
+  width: 160px;
+  text-align: center;
+  padding: 12px 24px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.delete-btn {
+  background-color: #cc3333;
+}
+
+.delete-btn:hover {
+  background-color: #990000;
+}
+
+.edit-btn {
+  background-color: #1a3faa;
+}
+
+.edit-btn:hover {
+  background-color: #0d2a7a;
+}
+
+.owner-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.back-button-container {
+  max-width: 1300px;
+  margin: 40px auto 0;
+  padding: 0 32px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #000000;
+}
+

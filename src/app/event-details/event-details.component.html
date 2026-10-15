@@ -1,0 +1,80 @@
+<div class="back-button-container">
+  <button class="back-btn" (click)="navigateBackToEvents()">
+    ← Back to Events
+  </button>
+</div>
+
+@if (event$ | async; as event) {
+  <div class="page-layout">
+    <div class="event-details-container">
+      <div class="event-header">
+        <h1 class="event-name">{{ event.eventName }}</h1>
+        <div class="event-dates">
+          <div class="event-date-item">
+            <span class="event-date-label">Start:</span>
+            {{ event.startDate | date: 'd MMMM, HH:mm' }}
+          </div>
+          <div class="event-date-item">
+            <span class="event-date-label">End:</span>
+            {{ event.endDate | date: 'd MMMM, HH:mm' }}
+          </div>
+        </div>
+      </div>
+
+      @if (isOwner(event)) {
+        <div class="owner-actions">
+          <button class="delete-btn" (click)="deleteEvent()">
+            Delete Event
+          </button>
+          <button class="edit-btn" (click)="navigateEditEvent()">
+            Edit Event
+          </button>
+        </div>
+      } @else {
+        <button class="subscribe-btn" (click)="handleSubscription(event)">
+          {{ event.isSubscribed ? 'Unsubscribe' : 'Subscribe' }}
+        </button>
+      }
+
+      <div class="event-description-box">
+        <p>{{ event.shortDescription }}</p>
+      </div>
+
+      <h2 class="event-details-heading">Event Details</h2>
+      <p class="event-detailed-description">{{ event.detailedDescription }}</p>
+    </div>
+
+    @if (isAdmin()) {
+      @if (subscribers$ | async; as subscribers) {
+        <div class="subscribers-container">
+          <h3 class="subscribers-heading">Subscribed Users</h3>
+          <table class="subscribers-table">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (subscriber of subscribers; track subscriber.userId) {
+                <tr>
+                  <td>{{ subscriber.userName }}</td>
+                  <td>
+                    @if (isOwner(event) && subscriber.userId !== event.ownerId) {
+                      <button
+                        class="remove-btn"
+                        (click)="removeUserFromEvent(event, subscriber.userId)"
+                      >
+                        Remove
+                      </button>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+  </div>
+}

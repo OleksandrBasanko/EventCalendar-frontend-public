@@ -1,0 +1,220 @@
+.events-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.page-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #1a3faa;
+  margin: 0 0 24px;
+}
+
+.events-page {
+  display: flex;
+  gap: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.events-panel {
+  flex: 1;
+}
+
+.events-list-header {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 16px;
+}
+
+.events-list-header .highlight {
+  color: #1a3faa;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.events-list-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding: 0 12px;
+}
+
+.label-subscribed {
+  width: 52px;
+  min-width: 52px;
+  text-align: left;
+}
+
+.no-events {
+  color: #999;
+}
+
+.event-item {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin-bottom: 8px;
+  cursor: pointer;
+  min-height: 60px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.event-item:hover .event-name {
+  color: #1a3faa;
+}
+
+.event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  flex: 1;
+}
+
+.event-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
+
+.event-description {
+  font-size: 16px;
+  color: #888;
+}
+
+.event-subscribed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  min-width: 52px;
+  font-size: 22px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.subscribed {
+  color: #2e9e4f;
+}
+
+.not-subscribed {
+  color: #cc3333;
+}
+
+/* --- Календар --- */
+
+.calendar {
+  width: 540px;
+  border: 1px solid #e0e0e0;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a3faa;
+  color: white;
+  padding: 16px 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-arrow {
+  cursor: pointer;
+  font-size: 13px;
+  user-select: none;
+}
+
+.nav-arrow:hover {
+  text-decoration: underline;
+}
+
+.current-month {
+  font-size: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekday-label {
+  text-align: center;
+  font-weight: bold;
+  color: #666;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.day-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.day-cell.inactive {
+  cursor: default;
+}
+
+.day-cell.has-events {
+  color: #1a3faa;
+  font-weight: bold;
+}
+
+.day-cell.selected {
+  background: #1a3faa;
+  color: white;
+}
+
+.day-number {
+  font-size: 16px;
+}
+.dots {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.dots-row {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1a3faa;
+}
+
+.day-cell.selected .dot {
+  background: white;
+}
+
+.dot-more {
+  font-size: 10px;
+  line-height: 5px;
+}

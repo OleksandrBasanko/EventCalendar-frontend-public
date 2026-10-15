@@ -1,0 +1,126 @@
+<div class="auth-page">
+  <div class="auth-form">
+    <h2 class="text-uppercase">Реєстрація</h2>
+
+    <form (ngSubmit)="register()" #registerForm="ngForm" class="mt-lg">
+      <div class="form-group">
+        <label for="userName" class="form-label">Ім'я користувача</label>
+        <input
+          id="userName"
+          type="text"
+          name="userName"
+          class="form-input"
+          [(ngModel)]="userName"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="firstName" class="form-label">Ім'я</label>
+        <input
+          id="firstName"
+          type="text"
+          name="firstName"
+          class="form-input"
+          [(ngModel)]="firstName"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="secondName" class="form-label">Прізвище</label>
+        <input
+          id="secondName"
+          type="text"
+          name="secondName"
+          class="form-input"
+          [(ngModel)]="secondName"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          class="form-input"
+          [class.form-input--invalid]="emailModel.touched && emailModel.invalid"
+          [(ngModel)]="email"
+          required
+          email
+          #emailModel="ngModel"
+        />
+        @if (emailModel.touched && emailModel.invalid) {
+          <div class="form-error">Введіть коректний email</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="form-label">Телефон</label>
+        <input
+          id="phone"
+          type="tel"
+          name="phone"
+          class="form-input"
+          [(ngModel)]="phone"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Пароль</label>
+        <div class="password-wrapper">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            name="password"
+            class="form-input"
+            [(ngModel)]="password"
+            required
+            minlength="6"
+          />
+          <button
+            type="button"
+            class="password-wrapper__toggle"
+            (click)="togglePasswordVisibility()"
+          >
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Підтвердіть пароль</label>
+        <input
+          id="confirmPassword"
+          [type]="showPassword ? 'text' : 'password'"
+          name="confirmPassword"
+          class="form-input"
+          [(ngModel)]="confirmPassword"
+          required
+        />
+        @if (passwordsMismatch) {
+          <div class="form-error">Паролі не співпадають</div>
+        }
+      </div>
+
+      @for (err of registrationErrors; track err) {
+        <div class="form-error">{{ err }}</div>
+      }
+
+      <button
+        type="submit"
+        class="btn btn--primary btn--block mt-md"
+        [disabled]="isLoading || registerForm.invalid"
+      >
+        {{ isLoading ? 'Завантаження...' : 'Зареєструватись' }}
+      </button>
+    </form>
+
+    <p class="auth-form__footer">
+      Вже є акаунт? <a routerLink="/login" class="auth-form__link">Увійти</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="back-button-container">
+  <button class="back-btn" (click)="navigateBackToEvents()">
+    ← Back to Events
+  </button>
+</div>
+
+<div class="create-event-container">
+  <h1 class="page-title">Create Event</h1>
+  <app-event-form
+    buttonText="Create Event"
+    (formSubmit)="onFormSubmit($event)"
+  ></app-event-form>
+</div>

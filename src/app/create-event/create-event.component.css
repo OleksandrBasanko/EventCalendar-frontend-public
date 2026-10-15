@@ -1,0 +1,35 @@
+.create-event-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 32px;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #1a3faa;
+  margin: 0 0 24px;
+}
+
+.back-button-container {
+  max-width: 800px;
+  margin: 24px auto 0;
+  padding: 0 32px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #000000;
+}
