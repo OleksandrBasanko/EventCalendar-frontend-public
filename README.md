@@ -1,59 +1,96 @@
-# EventCalendarFrontend
+# EventsCalendar Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+**EventsCalendar Frontend** — це клієнтська частина вебсервісу календаря подій, створена на **Angular 21**. Застосунок інтегрується з бекендом (ASP.NET Core Web API) через REST API та забезпечує повноцінну взаємодію користувачів із системою з використанням JWT-автентифікації.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Функціонал
 
-```bash
-ng serve
+* **Інтерактивний календар** — зручна навігація по місяцях, вибір дня та візуальне виділення днів із подіями (крапки-індикатори: до 3 крапок, далі числовий індикатор / знак `+`).
+* **Перегляд подій дня** — перелік подій обраної дати з короткими описами та індикацією статусу підписки (`✓` / `✗`).
+* **Автентифікація** — реєстрація та вхід користувачів із безпечним збереженням JWT-токена в `localStorage`.
+* **Рольова модель** — права доступу зчитуються безпосередньо з токена; панель створення подій доступна виключно користувачам із роллю адміністратора (`admin`).
+* **Керування подіями** — створення та редагування подій через універсальну компоненту форми.
+* **Збереження стану в URL** — параметри запиту (`year`, `month`, `day`) автоматично синхронізуються з адресним рядком без перезавантаження сторінки, що дозволяє легко ділитися посиланнями або оновлювати сторінку без втрати контексту.
+
+---
+
+## Технологічний стек
+
+* **Фреймворк:** Angular `^21.2.0` (NgModule-підхід, `standalone=false`)
+* **Мова:** TypeScript `~5.9.2`
+* **Стилі:** CSS
+* **Реактивне програмування:** RxJS `~7.8.0`
+* **JWT обробка:** `jwt-decode` `^4.0.0`
+* **Тестування:** Vitest `^4.0.8`, JSDOM `^28.0.0`
+* **Збірка та розробка:** Angular CLI / `@angular/build` `^21.2.12`
+* **Форматування:** Prettier `^3.8.1`
+* **Пакетний менеджер:** npm `11.13.0`
+
+---
+
+##  Структура проєкту
+
+```text
+src/app/
+├── auth/                      → Автентифікація: компоненти login / register та auth.models
+├── events/                    → Головна сторінка: інтерактивний календар і список подій обраного дня
+├── event-details/             → Сторінка детального перегляду події
+├── create-event/              → Сторінка створення нової події
+├── edit-event/                → Сторінка редагування події
+├── event-form/                → Спільна форма для створення та редагування подій
+├── interceptors/              → HTTP-інтерцептори (AuthInterceptor)
+├── models/                    → Типізовані DTO моделі для запитів та відповідей бекенду
+├── services/                  → Бізнес-сервіси (AuthService, BackendApiService)
+├── case-insensitive-url-serializer.ts → Регістронезалежний обробник URL
+├── app-routing-module.ts      → Модуль маршрутизації
+├── app-module.ts              → Кореневий модуль застосунку (AppModule)
+└── app.ts                     → Кореневий компонент
+proxy.conf.json                → Конфігурація проксі для розробки (/api → бекенд)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## Архітектурні рішення та стратегії
+|---|---|
+| **Модульна архітектура (`standalone=false`)** | Застосунок побудований на класичній модульній архітектурі NgModule. Усі компоненти чітко оголошені в `AppModule` (`declarations`), а зовнішні залежності та сервіси підключені через конфігурації `imports` та `providers`. |
+| **Автоматична ієрархія перехоплення (`AuthInterceptor`)** | Реалізовано класовий HTTP-інтерцептор (`HttpInterceptor`), який автоматично перехоплює вихідні запити, додає заголовок `Authorization: Bearer <token>` за наявності токена в сховищі та пропускає відкриті запити (логін, реєстрація) без змін. |
+| **Реактивне управління сесією (RxJS `BehaviorSubject` та `jwt-decode`)** |
+  * Токен інкапсулюється в `localStorage`, а його корисне навантаження (payload) парситься за допомогою `jwt-decode`.
+  * Стан авторизації та ролі управляються через `BehaviorSubject`, що гарантує миттєву доставку актуального стану новим підписникам. Потоки експортуються як захищені `Observable` (`isLoggedIn$`, `role$`). |
+| **Асинхронний потоковий пайплайн (Observable + async)** | Дані з бекенду транслюються як Observable<T> (наприклад, Observable<EventDto[]> для подій місяця), обробка яких у шаблонах виконується за допомогою async-пайпа. Це повністю усуває потребу в ручній підписці чи відписці (subscribe / unsubscribe). |
+| **Декларативний синтаксис шаблонів** | Використання сучасного вбудованого control flow (`@if`, `@else`, `@for` із директивою `track`) замість застарілих директив структурного типу. |
+| **Компонентна інкапсуляція та перевикористання** | Винесення логіки форм у єдиний незалежний компонент (`EventFormComponent`) із чітким використанням `@Input` для вхідних даних та `@Output` для подій надсилання форми. |
+| **Синхронізація стану браузера без переривання життєвого циклу** | Метод `syncUrl()` оновлює параметри рядка запиту через `Location.replaceState()`, що дозволяє оновлювати URL в обхід Angular Router без повторного виклику `ngOnInit` і перестворення компонента.
+| **Проксіювання запитів для середовища розробки** | Використання `proxy.conf.json` усуває проблеми з CORS, дозволяючи використовувати відносні шляхи (`/api/...`) на етапі розробки. |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## Передумови та запуск
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Перед початком роботи переконайтеся, що на вашому комп'ютері встановлено:
 
-```bash
-ng generate --help
-```
+* **Node.js** (сумісна версія з npm `11.13.0`)
+* **Angular CLI** `21.2.x`:
 
-## Building
+  ```bash
+  npm install -g @angular/cli
+  ```
 
-To build the project run:
+* Запущений бекенд-сервіс **EventsCalendar API** за адресою `http://localhost:5162`.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Встановлення залежностей та запуск
 
 ```bash
-ng e2e
+# Встановлення пакетів
+npm install
+
+# Запуск у режимі розробки
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Застосунок буде доступний за адресою `http://localhost:4200/`. Якщо конфігурація проксі не підхопилася автоматично, скористайтеся командою:
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+ng serve --proxy-config proxy.conf.json
+```
