@@ -1,0 +1,91 @@
+
+<div class="events-container">
+  <h1 class="page-title">EVENTS</h1>
+
+  @if (eventsOfMonth$ | async; as eventsOfMonth) {
+    <div class="events-page">
+      <div class="events-panel">
+        <div class="events-list-header">
+          EVENTS FOR <span class="highlight">{{ day }}</span> {{ monthNames[month - 1] }}
+        </div>
+
+        <div class="events-list">
+          @if (getSelectedDayEvents(eventsOfMonth).length === 0) {
+            <p class="no-events">No Events</p>
+          } @else {
+            <div class="events-list-labels">
+              <span>Event</span>
+              <span class="label-subscribed">Subscribed</span>
+            </div>
+            @for (event of getSelectedDayEvents(eventsOfMonth); track event.id) {
+              <div class="event-item" (click)="selectEvent(event)">
+                <div class="event-info">
+                  <span class="event-name">{{ event.eventName }}</span>
+                  <span class="event-description">{{ event.shortDescription }}</span>
+                </div>
+                <div class="event-subscribed" [class.subscribed]="event.isSubscribed" [class.not-subscribed]="!event.isSubscribed">
+                  @if (event.isSubscribed) { ✓ } @else { ✗ }
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="calendar">
+        <div class="calendar-header">
+          <span class="nav-arrow" (click)="previousMonth()">&lt; {{ monthNames[(month - 2 + 12) % 12] }}</span>
+          <span class="current-month">{{ monthNames[month - 1] | uppercase }} {{ year }}</span>
+          <span class="nav-arrow" (click)="nextMonth()">{{ monthNames[month % 12] }} &gt;</span>
+        </div>
+
+        <div class="calendar-grid">
+          @for (d of ['MO','TU','WE','TH','FR','SA','SU']; track d) {
+            <div class="weekday-label">{{ d }}</div>
+          }
+
+          @for (d of leadingDays; track d) {
+            <div class="day-cell inactive">
+              <span class="day-number">{{ d }}</span>
+            </div>
+          }
+
+          @for (d of currentMonthDays; track d) {
+            <div
+              class="day-cell"
+              [class.has-events]="getEventsForDay(eventsOfMonth, d).length > 0"
+              [class.selected]="d === day"
+              (click)="selectDay(d)"
+            >
+              <span class="day-number">{{ d }}</span>
+              @if (getEventsForDay(eventsOfMonth, d).length > 0) {
+                <div class="dots">
+                  @for (row of getDots(getEventsForDay(eventsOfMonth, d).length); track $index) {
+                    <div class="dots-row">
+                      @for (dot of row; track dot) {
+                        <span class="dot"></span>
+                      }
+                    </div>
+                  }
+                  @if (getEventsForDay(eventsOfMonth, d).length > 3) {
+                    <span class="dot-more">+</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isAdmin()) {
+    <button
+      class="btn btn--primary mt-md"
+      (click)="createNewEvent()"
+      style="margin-top: 20px; display: block; width: 100%;"
+    >
+      Create New Event
+    </button>
+  }
+</div>

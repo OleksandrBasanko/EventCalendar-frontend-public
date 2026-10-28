@@ -1,0 +1,24 @@
+<div class="back-button-container">
+  <button class="back-btn" (click)="navigateBackToEvent()">
+    ← Back to Event
+  </button>
+</div>
+
+@if (event$ | async; as event) {
+  <div class="edit-event-container">
+    <h1 class="page-title">Edit Event</h1>
+    <app-event-form
+      buttonText="Save Changes"
+      [currentEventName]="event.eventName"
+      [currentShortDescription]="event.shortDescription"
+      [currentDetailedDescription]="event.detailedDescription"
+      [currentStartDate]="event.startDate"
+      [currentEndDate]="event.endDate"
+      (formSubmit)="onFormSubmit($event)"
+    ></app-event-form>
+  </div>
+} @else {
+  <div class="loading-container">
+    <p class="loading-text">Loading...</p>
+  </div>
+}

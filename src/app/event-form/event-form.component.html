@@ -1,0 +1,57 @@
+<div class="form-container">
+  <div class="form-field">
+    <label class="form-label">Event Name</label>
+    <input
+      class="form-input"
+      type="text"
+      [(ngModel)]="eventName"
+      placeholder="Enter event name"
+    />
+  </div>
+
+  <div class="form-field">
+    <label class="form-label">Short Description</label>
+    <input
+      class="form-input"
+      type="text"
+      [(ngModel)]="shortDescription"
+      placeholder="Enter short description"
+    />
+  </div>
+
+  <div class="form-field">
+    <label class="form-label">Detailed Description</label>
+    <textarea
+      class="form-textarea"
+      [(ngModel)]="detailedDescription"
+      placeholder="Enter detailed description"
+      rows="4"
+    ></textarea>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label class="form-label">Start Date</label>
+      <input
+        class="form-input"
+        type="text"
+        [(ngModel)]="startDate"
+        placeholder="YYYY-MM-DD HH:MM"
+      />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">End Date</label>
+      <input
+        class="form-input"
+        type="text"
+        [(ngModel)]="endDate"
+        placeholder="YYYY-MM-DD HH:MM"
+      />
+    </div>
+  </div>
+
+  <button class="form-btn" (click)="onButtonClicked()">
+    {{ buttonText }}
+  </button>
+</div>
