@@ -119,7 +119,7 @@ On your machine, create a PostgreSQL server (you can use pgAdmin 4 for this) wit
  
 ### 2. Prepare the Project Folders
 
-Link to the frontend repository: <https://github.com/OleksandrBasanko/EventCalendar-frontend-public>
+Link to the backend repository: <https://github.com/OleksandrBasanko/EventCalendar-backend-public>
  
 1. Create an empty folder on your disk and name it `EventCalendar`.
 2. Inside this folder, create two more empty folders: `event-calendar-frontend` and `event-calendar-backend`.
